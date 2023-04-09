@@ -2,7 +2,7 @@
   "name": "abaseppuku-app",
   "version": "1.0.0",
   "description": "Bun Express Server",
-  "main": "index.js",
+  "main": "server/index.ts",
   "scripts": {
     "build:server": "rm -rf dist && tsc",
     "start": "bun dist/index.js",
