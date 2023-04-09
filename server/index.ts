@@ -1,34 +1,45 @@
 import express, { Express, Request, Response } from "express";
 import helmet from "helmet";
 import cors from "cors";
-import User from "./models/user";
 import mongoose from "mongoose";
+import router from "./routes";
 
 const port = process.env.PORT;
 
 const app = express();
-app.use(express.json());
+
+mongoose.set("strictQuery", true);
+mongoose
+  .connect("mongodb://127.0.0.1:27017/abaseppuku-api", {
+    dbName: "abaseppukuDB",
+    retryWrites: true,
+    w: "majority",
+  })
+  .then(() => console.log("connected"))
+  .catch((e) => console.log(e));
+
 // app.use(helmet());
 // app.use(cors());
-mongoose.set("strictQuery", true);
-mongoose.connect("mongodb://127.0.0.1:27017/abaseppuku-api", {
-  dbName: "abaseppukuDB",
-});
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.post("/users", (req: Request, res: Response) => {
-  console.log(req.body);
-  console.log("Arash");
-  const user = new User(req.body);
+/*
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers,",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  if (req.method == "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+  }
 
-  user
-    .save()
-    .then(() => {
-      res.send(user);
-    })
-    .catch((e) => {
-      res.send(e);
-    });
+  next();
 });
+*/
+
+/** Setup server routes */
+app.use(router);
 
 app.listen(port, () => {
   console.log(`now listening on port ${port}`);
