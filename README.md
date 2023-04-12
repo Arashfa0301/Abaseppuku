@@ -11,6 +11,8 @@ cd client
 bun dev
 ```
 
+Note: sometimes bun bugs out and localhost wont refresh on save. rerun bun dev if such is the case
+
 ### Development backend
 
 ```bash
