@@ -15,4 +15,10 @@ const getUser: RequestHandler = async (req, res) => {
     .catch((e) => res.status(500).json(e));
 };
 
-export default { getUser, createUser };
+const getUsers: RequestHandler = async (req, res) => {
+  return User.find({})
+    .then((user) => (user ? res.status(200).json(user) : res.status(404)))
+    .catch((e) => res.status(500).json(e));
+};
+
+export default { getUser, createUser, getUsers };
