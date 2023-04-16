@@ -4,6 +4,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with Bun. Abasuppu
 
 ## Getting Started
 
+For being able to run the prosjekt [bun](https://bun.sh/) has to be installed
+
 ### Development frontend
 
 ```sh
